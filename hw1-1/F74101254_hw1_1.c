@@ -33,7 +33,7 @@ int main(int argc, char *argv[]){
     MPI_Bcast(&tests, m, MPI_UNSIGNED_LONG, 0, MPI_COMM_WORLD);
 
     for(int i = process_rank; i < (1 << m); i += global_sz){
-        for(int j = 32; j >= 0; j --){
+        for(int j = 0; j < 32; j ++){
             if(i & j){
                 covered |= tests[i];
             }
