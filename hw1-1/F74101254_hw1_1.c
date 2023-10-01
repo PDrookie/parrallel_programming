@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<math.h>
 #include<stdlib.h>
 #include<mpi.h>
 
@@ -33,7 +32,7 @@ int main(int argc, char *argv[]){
     MPI_Bcast(&m, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&tests, m, MPI_UNSIGNED_LONG, 0, MPI_COMM_WORLD);
 
-    for(int i = process_rank; i < pow(2, m - 1); i += global_sz){
+    for(int i = process_rank; i < (1 << m); i += global_sz){
         for(int j = 32; j >= 0; j --){
             if(i & j){
                 covered |= tests[i];
