@@ -55,19 +55,19 @@ int main(int argc, char *argv[]){
 
     int local_sz = (m * n) % global_sz ? (m * n) + (global_sz - ((m * n) % global_sz)) : (m * n);
     K_matrix = (K_matrix == NULL) ? ((int *)malloc(sizeof(int *) * k_size * k_size)) : K_matrix;
-    MPI_Bcast(K_matrix, d * d, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(K_matrix, k_size * k_size, MPI_INT, 0, MPI_COMM_WORLD);
 
     At_matrix = (At_matrix == NULL) ? ((int *)malloc(sizeof(int *) * local_sz)) : At_matrix;
     At_matrix_2 = (At_matrix_2 == NULL) ? ((int *)malloc(sizeof(int *) * local_sz)) : At_matrix_2;
-    MPI_Bcast(At_matrix, m * n, MPI_INT, MPI_COMM_WORLD);
+    MPI_Bcast(At_matrix, m * n, MPI_INT, 0, MPI_COMM_WORLD);
 
     while(t --){
         int start = process_rank * (local_sz / global_sz);
         int end = (process_rank + 1) * (local_sz / global_sz);
         
-        for(int i = start; i < end; i ++){
-            int row = i / m;
-            int col = i % m;
+        for(int k = start; k < end; k ++){
+            int row = k / m;
+            int col = k % m;
 
             int32_t cal = 0;
 
