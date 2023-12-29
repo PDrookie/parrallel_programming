@@ -19,6 +19,7 @@ int main(int argc, char** argv) {
     int process_rank, global_sz;
     int *neighbor = NULL;   /*記錄每個點與多少個點相連*/
     int *dist = NULL;       /*收納鄰近的點的距離*/
+    int *visited = NULL;    /*記錄拜訪的點的值*/
     int *Index = NULL;      /*收納最鄰近的點*/
     Node *graph = NULL;     /*記錄所有資訊*/
 
